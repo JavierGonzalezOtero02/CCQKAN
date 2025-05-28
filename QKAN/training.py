@@ -16,7 +16,7 @@ import gc, sys
 
 
 # My custom libraries
-from QKAN import QKAN, optimization_evaluation as optim
+from QKAN import QKAN, optimization as optim
 
 ########################## TRAINING RELATED FUNCTIONS ##########################
 def train_loop_qkan(model, steps, X, Y, optimizer, GFCF, train_gfcf, training_error_function=optim.MSE_error):

@@ -10,7 +10,7 @@ import torch
 import time
 
 #My custom libraries
-from QKAN import QKAN, optimization_evaluation as optim
+from QKAN import QKAN
 
 def multiple_forwards(dataframes, model, parameters):
     """
