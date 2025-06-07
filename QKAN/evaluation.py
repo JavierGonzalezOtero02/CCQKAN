@@ -314,7 +314,7 @@ def metrics_classification_EVQKAN(dataframes, model, parameters, plot=False):
         test_X1 = np.array(dataframes[i][['x1']].values.tolist(), dtype=float)
 
         # Generate predicted labels: -1 if y_pred >= x1 else 1
-        pred_labels = np.array([-1 if y.item() >= x[0] else 1 for y, x in zip(y_pred, test_X1)])
+        pred_labels = np.array([-1 if y.item() >= np.sqrt(x[0]) else 1 for y, x in zip(y_pred, test_X1)])
         test_labels = dataframes[i]['label'].to_numpy()
 
         # Compute classification metrics
@@ -384,6 +384,111 @@ def metrics_classification_EVQKAN(dataframes, model, parameters, plot=False):
         "recalls": recalls,
         "figures": figures
     }
+
+def summary_classification_metrics(
+    classification_metrics_0,
+    classification_metrics_1,
+    classification_metrics_2,
+    classification_metrics_3,
+    classification_metrics_4,
+    classification_metrics_5,
+    model_names,
+    title="Classification Metrics Summary",
+    output_path="classification_metrics_plot.pdf"
+):
+    all_metrics = [
+        classification_metrics_0,
+        classification_metrics_1,
+        classification_metrics_2,
+        classification_metrics_3,
+        classification_metrics_4,
+        classification_metrics_5
+    ]
+
+    metric_types = ["Accuracy", "Precision", "Recall"]
+    metric_keys = {"Accuracy": "accuracies", "Precision": "precisions", "Recall": "recalls"}
+    metric_colors = {
+        "Accuracy": "#FA8072",   # salmon
+        "Precision": "#90EE90",  # light green
+        "Recall": "#ADD8E6"      # light blue
+    }
+
+    def to_float(x):
+        try:
+            return x.item()
+        except AttributeError:
+            return float(x)
+
+    all_data = {metric: [] for metric in metric_types}
+    means = {metric: [] for metric in metric_types}
+
+    for model_metrics in all_metrics:
+        for metric in metric_types:
+            raw_values = model_metrics[metric_keys[metric]]
+            floats = [to_float(v) for v in raw_values]
+            all_data[metric].append(floats)
+            means[metric].append(np.mean(floats))
+
+    num_models = len(model_names)
+    width = 0.25
+    x_ticks = np.arange(num_models)
+
+    fig, ax = plt.subplots(figsize=(16, 6))
+
+    for x in x_ticks[:-1]:
+        sep = (x + x + 1) / 2
+        ax.axvline(x=sep, linestyle='--', color='gray', linewidth=0.6, alpha=0.6, zorder=0)
+
+    for i, metric in enumerate(metric_types):
+        color = metric_colors[metric]
+        positions = x_ticks + (i - 1) * width
+        box_data = all_data[metric]
+
+        ax.boxplot(
+            box_data,
+            positions=positions,
+            widths=width * 0.85,
+            patch_artist=True,
+            boxprops=dict(facecolor=color, edgecolor='black', linewidth=1.2),
+            medianprops=dict(color='black', linewidth=2),
+            whiskerprops=dict(color='black', linewidth=1.2),
+            capprops=dict(color='black', linewidth=1.2),
+            flierprops=dict(marker='o', markersize=4, linestyle='none',
+                            markerfacecolor=color, markeredgecolor='black', alpha=0.6)
+        )
+
+        for j, mean_val in enumerate(means[metric]):
+            pos = positions[j]
+            ax.hlines(mean_val, pos - width * 0.4, pos + width * 0.4,
+                      colors='black', linestyles='--', linewidth=1.5)
+
+    ax.grid(True, axis='y', linestyle='--', linewidth=0.7)
+    ax.grid(False, axis='x')  # quitar líneas verticales automáticas
+
+    ax.set_xticks(x_ticks)
+    ax.set_xticklabels(model_names, rotation=0, ha='center', fontsize=20)
+    ax.set_ylabel("Score", fontsize=23)
+    ax.set_xlabel("") 
+    ax.set_title(title, fontsize=23, pad=20)
+    ax.tick_params(axis='y', labelsize=16)
+
+    ax.set_ylim(0, 1)
+
+    handles = [
+        plt.Line2D([0], [0], color=metric_colors["Accuracy"], lw=10),
+        plt.Line2D([0], [0], color=metric_colors["Precision"], lw=10),
+        plt.Line2D([0], [0], color=metric_colors["Recall"], lw=10),
+        plt.Line2D([0], [0], color='black', lw=2, label='Median'),
+        plt.Line2D([0], [0], color='black', lw=2, linestyle='--', label='Mean'),
+    ]
+    labels = ["Accuracy", "Precision", "Recall", "Median", "Mean"]
+    ax.legend(handles, labels, fontsize=16, loc='lower left', frameon=False)
+
+    plt.subplots_adjust(left=0.06, right=0.98, top=0.90, bottom=0.2)
+
+    plt.savefig(output_path, format='pdf', bbox_inches='tight')
+    plt.close()
+    print(f"Plot saved as PDF at: {output_path}")
 
 
 def plot_training_time_boxplots(time_data_per_task, model_names, task_name, show_stats=True):
