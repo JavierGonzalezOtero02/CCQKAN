@@ -261,7 +261,7 @@ class QKAN:
         Implements the QSVT (Quantum Singular Value Transformation) used within the CHEB step in QKAN framework.
     
         This function applies the Chebyshev polynomial transformation (the CHEB step) to the singular
-        values of a block-encoded matrix. It is a core component of QKAN (Quantum Kernel Activation Network),
+        values of a block-encoded matrix. It is a core component of QKAN,
         responsible for activating or modulating the singular values of the input via a Chebyshev polynomial
         of a given degree.
     
