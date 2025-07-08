@@ -2,11 +2,10 @@ import sys
 import pickle
 import pennylane as qml
 import gc, sys
-import time
 
 # My custom libraries
-from QKAN import QKAN as qk, training as tr, optimization_evaluation as optim
-from QKAN_datasets import datasets_utils as dt
+from CCQKAN import training as tr
+from CCQKAN_datasets import datasets_utils as dt
 
 ########################## MAIN ##########################
 
@@ -87,7 +86,7 @@ if __name__ == "__main__":
     elif mode == "regression_multidimensional_polynomial":
         print(f'{n_experiments} will be conducted')
 
-        configuration = f"seed: {seed}, n_experiments: {n_experiments}, test: dt.generate_dataset_regression(50, [(-1, 1), (-1, 1)], dt.multidimensional_polynomial, 2, seed), train: dt.generate_dataset_regression(100, [(-1, 1), (-1, 1)], dt.multidimensional_polynomial, 2, seed+1+i), optimizer: qml.AdamOptimizer(stepsize=0.3), args_train: train_df, test_df,['x0', 'x1'], optimizer, [2,1], 2, [-1,1], 100, [train_min_y, train_max_y], GFCF=True, eta=1, alpha=0.8, train_gfcf=True, train_angles=True, time: 26_05_19_31"
+        configuration = f"seed: {seed}, n_experiments: {n_experiments}, test: dt.generate_dataset_regression(50, [(-1, 1), (-1, 1)], dt.multidimensional_polynomial, 2, seed), train: dt.generate_dataset_regression(100, [(-1, 1), (-1, 1)], dt.multidimensional_polynomial, 2, seed+1+i), optimizer: qml.AdamOptimizer(stepsize=0.3), args_train: train_df, test_df,['x0', 'x1'], optimizer, [2,1], 2, [-1,1], 100, [train_min_y, train_max_y], GFCF=False, eta=1, alpha=0.8, train_gfcf=False, train_angles=False, time: 28_05_20_39"
         
         test_df = dt.generate_dataset_regression(50, [(-1, 1), (-1, 1)], dt.multidimensional_polynomial, 2, seed)
         for i in range(n_experiments):
@@ -98,7 +97,7 @@ if __name__ == "__main__":
             train_min_y = train_df['y'].min()
             max_mins.append([train_min_y, train_max_y])
             optimizer = qml.AdamOptimizer(stepsize=0.3)
-            train_data_iter, test_data_iter, parameters_pre_train_iter, parameters_post_train_iter, local_test_errors_iter, global_test_errors_iter, global_train_error_evolution_iter, test_preds_iter, attempt_training_time = tr.training_evaluate_multiple_times(train_df, test_df,['x0', 'x1'], optimizer, [2,1], 2, [-1,1], 100, [train_min_y, train_max_y], GFCF=True, eta=1, alpha=0.8, train_gfcf=True, train_angles=True)
+            train_data_iter, test_data_iter, parameters_pre_train_iter, parameters_post_train_iter, local_test_errors_iter, global_test_errors_iter, global_train_error_evolution_iter, test_preds_iter, attempt_training_time = tr.training_evaluate_multiple_times(train_df, test_df,['x0', 'x1'], optimizer, [2,1], 2, [-1,1], 100, [train_min_y, train_max_y], GFCF=False, eta=1, alpha=0.8, train_gfcf=False, train_angles=False)
             train_data = train_data + train_data_iter
             test_data = test_data + test_data_iter
             parameters_pre_train = parameters_pre_train + parameters_pre_train_iter
