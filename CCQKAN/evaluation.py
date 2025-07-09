@@ -263,25 +263,28 @@ def plot_test_error_distribution(local_test_errors, log_errors=True):
 
 
 
-def metrics_classification(dataframes, model, parameters, plot=False):
+def metrics_classification(dataframes, model, parameters, show_confusion=False, show_barplot=False):
     """
-    Evaluates classification performance of a QKAN model across multiple datasets, 
-    showing confusion matrices and key metrics (accuracy, precision, recall).
+    Evaluates classification performance of a QKAN model across multiple datasets,
+    optionally displaying confusion matrices and bar plots for metrics.
 
     Parameters:
     -----------
     dataframes : list of pandas.DataFrame
         List of test datasets, one per training attempt.
         Each DataFrame must contain 'x0', 'x1', and 'label' columns.
-    
+
     model : QKAN
         The QKAN model used to generate predictions.
 
     parameters : list
         List of parameter sets, one per model for each dataset.
 
-    plot : bool, optional (default: False)
-        Whether to show a grouped bar chart comparing accuracy, precision, and recall across attempts.
+    show_confusion : bool, optional (default: False)
+        Whether to display confusion matrices with metrics.
+
+    show_barplot : bool, optional (default: False)
+        Whether to display a grouped bar chart comparing accuracy, precision, and recall.
 
     Returns:
     --------
@@ -290,7 +293,7 @@ def metrics_classification(dataframes, model, parameters, plot=False):
         - 'accuracies': list of float
         - 'precisions': list of float
         - 'recalls': list of float
-        - 'figures': list of matplotlib.figure.Figure (confusion matrix grid + optional bar chart)
+        - 'figures': list of matplotlib.figure.Figure (only the ones generated)
     """
 
     accuracies = []
@@ -300,9 +303,9 @@ def metrics_classification(dataframes, model, parameters, plot=False):
 
     n_attempts = len(dataframes)
 
-    # Create a 2x5 grid for confusion matrices
-    fig_grid, axes = plt.subplots(2, 5, figsize=(20, 8))
-    axes = axes.flatten()
+    if show_confusion:
+        fig_grid, axes = plt.subplots(2, 5, figsize=(20, 8))
+        axes = axes.flatten()
 
     for i in range(n_attempts):
         # Prepare model input
@@ -310,11 +313,11 @@ def metrics_classification(dataframes, model, parameters, plot=False):
         y_pred = model.forward(test_X0, *parameters[i])
         test_X1 = np.array(dataframes[i][['x1']].values.tolist(), dtype=float)
 
-        # Generate predicted labels: -1 if y_pred >= x1 else 1
+        # Predicted labels: -1 if y_pred >= sqrt(x1) else 1
         pred_labels = np.array([-1 if y.item() >= np.sqrt(x[0]) else 1 for y, x in zip(y_pred, test_X1)])
         test_labels = dataframes[i]['label'].to_numpy()
 
-        # Compute classification metrics
+        # Compute metrics
         accuracy = np.mean(test_labels == pred_labels.flatten())
         precision = precision_score(test_labels, pred_labels, pos_label=1, zero_division=0)
         recall = recall_score(test_labels, pred_labels, pos_label=1, zero_division=0)
@@ -323,33 +326,32 @@ def metrics_classification(dataframes, model, parameters, plot=False):
         precisions.append(precision)
         recalls.append(recall)
 
-        # Display confusion matrix in the grid
-        cm = confusion_matrix(test_labels, pred_labels, labels=[-1, 1])
-        disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=['-1', '1'])
-        disp.plot(ax=axes[i], cmap='Blues', colorbar=False)
-        axes[i].set_title(f'Attempt {i+1}', fontsize=12)
-        axes[i].grid(False)
+        # Plot confusion matrix if enabled
+        if show_confusion:
+            cm = confusion_matrix(test_labels, pred_labels, labels=[-1, 1])
+            disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=['-1', '1'])
+            disp.plot(ax=axes[i], cmap='Blues', colorbar=False)
+            axes[i].set_title(f'Attempt {i+1}', fontsize=12)
+            axes[i].grid(False)
 
-        # Add metrics below each matrix (clearly visible)
-        axes[i].text(0.5, -0.25,
-                     f'Acc: {accuracy:.2f}\nPrec: {precision:.2f}\nRec: {recall:.2f}',
-                     transform=axes[i].transAxes,
-                     ha='center', va='top',
-                     fontsize=11)
+            axes[i].text(0.5, -0.25,
+                         f'Acc: {accuracy:.2f}\nPrec: {precision:.2f}\nRec: {recall:.2f}',
+                         transform=axes[i].transAxes,
+                         ha='center', va='top',
+                         fontsize=11)
 
-    # Hide unused subplot cells if fewer than 10 attempts
-    for j in range(len(axes)):
-        if j >= n_attempts:
-            axes[j].axis('off')
+    # Finalize confusion grid
+    if show_confusion:
+        for j in range(len(axes)):
+            if j >= n_attempts:
+                axes[j].axis('off')
+        fig_grid.suptitle('Confusion Matrices with Metrics', fontsize=16)
+        fig_grid.tight_layout(rect=[0, 0.03, 1, 0.95])
+        plt.show()
+        figures.append(fig_grid)
 
-    # Final layout adjustments
-    fig_grid.suptitle('Confusion Matrices with Metrics', fontsize=16)
-    fig_grid.tight_layout(rect=[0, 0.03, 1, 0.95])
-    plt.show()
-    figures.append(fig_grid)
-
-    # Optional grouped bar plot of metrics
-    if plot:
+    # Optional bar plot
+    if show_barplot:
         fig_bar, ax_bar = plt.subplots(figsize=(12, 6))
         x_vals = np.arange(1, n_attempts + 1)
         width = 0.25
@@ -357,11 +359,10 @@ def metrics_classification(dataframes, model, parameters, plot=False):
         mean_acc = np.mean(accuracies)
         mean_prec = np.mean(precisions)
         mean_rec = np.mean(recalls)
-        
+
         ax_bar.bar(x_vals - width, accuracies, width=width, label=f"Accuracy (mean={mean_acc:.2f})", color="skyblue", edgecolor="black")
         ax_bar.bar(x_vals, precisions, width=width, label=f"Precision (mean={mean_prec:.2f})", color="lightgreen", edgecolor="black")
         ax_bar.bar(x_vals + width, recalls, width=width, label=f"Recall (mean={mean_rec:.2f})", color="salmon", edgecolor="black")
-
 
         ax_bar.set_xlabel('Attempt')
         ax_bar.set_ylabel('Score')
@@ -381,6 +382,7 @@ def metrics_classification(dataframes, model, parameters, plot=False):
         "recalls": recalls,
         "figures": figures
     }
+
 
 def summary_classification_metrics(
     classification_metrics_0,
