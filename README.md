@@ -31,7 +31,7 @@ Full methodology, background, and results are presented in the accompanying Bach
 ## Repository Structure
 
 ```text
-├── CCQKAN/                    # **Main framework**: CCQKAN class, training & evaluation scripts
+├── CCQKAN/                    # Main framework: CCQKAN class, training & evaluation scripts
 │
 ├── CCQKAN_datasets/          # Synthetic dataset generators and data visualization utilities
 │
