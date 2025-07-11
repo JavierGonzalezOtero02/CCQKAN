@@ -67,10 +67,3 @@ The following table shows the six model variants that can be constructed using t
 
 ---
 
-## Reproducing Results
-
-To run an experiment:
-
-```bash
-python main.py --model flex --task regression --alpha-trainable
-
