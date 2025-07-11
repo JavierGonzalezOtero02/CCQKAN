@@ -49,7 +49,9 @@ Full methodology, background, and results are presented in the accompanying Bach
 
 ---
 
-## Features
+## Models compatible with CCQKAN:
+![CCQKAN Models](./Thesis%20report/images/Models_CCQKAN.png)
+
 
 - Supports:
   - Classical preprocessing with fixed or trainable **GFCF** (`alpha`)
