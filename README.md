@@ -51,14 +51,15 @@ Full methodology, background, and results are presented in the accompanying Bach
 
 ## Models compatible with CCQKAN:
 ![CCQKAN Models](./Thesis%20report/images/Models_CCQKAN.png)
-
-
-- Supports:
-  - Classical preprocessing with fixed or trainable **GFCF** (`alpha`)
-  - Quantum architectures: **CHEB-QKAN** and **Flex-QKAN**
-  - Complete training + evaluation on synthetic datasets
-- Based on [PennyLane](https://pennylane.ai) for quantum simulation
-- Modular and extendable design
+The following table shows the six model variants that can be constructed using the CCQKAN framework, along with their corresponding configuration arguments.
+| Model          | GFCF flag | Trainable GFCF flag| Train angles flag |
+|----------------|-----------|--------------------|-------------------|
+| Plain-CHEB     | False     | -                  | False             |
+| Plain-Flex     | False     | -                  | True              |
+| GFCF-CHEB-0    | True      | False              | False             |
+| GFCF-CHEB-1    | True      | True               | False             |
+| GFCF-Flex-0    | True      | False              | True              |
+| GFCF-Flex-1    | True      | True               | True              |
 
 ---
 
