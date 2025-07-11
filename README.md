@@ -11,33 +11,41 @@ The repository accompanies the thesis submitted to the international conference 
 This project introduces two main contributions to enhance the expressivity of QKANs:
 
 - **GFCF Models**  
-  Use of *Generalized Fractional-order Chebyshev Functions* as a classical preprocessing step before quantum encoding.
+  Use of *Generalized Fractional-order Chebyshev Functions* as a classical processing step before quantum encoding.
 
 - **Flex-QKAN**  
   A flexible QKAN architecture that introduces learnable basis functions using trainable angles via the *Quantum Singular Value Transformation (QSVT)* framework.
 
 Both approaches are evaluated on classification and regression tasks using synthetically generated datasets.
 
-📄 Full methodology, background, and results are presented in the accompanying Bachelor's thesis:
+Full methodology, background, and results are presented in the accompanying Bachelor's thesis:
 
 > **Flexible Quantum Kolmogorov-Arnold Networks**  
 > *Javier González Otero*  
 > Supervised by *Miguel Ángel González Ballester*  
 > Academic Year: 2024–2025  
-> [📄 Download PDF](./Quantum_Kolmogorov_Arnold_Networks_TFG.pdf)
+> [📄 Flexible Quantum Kolmogorov Arnold Networks](./Quantum_Kolmogorov_Arnold_Networks_TFG.pdf)
 
 ---
 
 ## Repository Structure
 
 ```text
-CCQKAN/
-├── models/       # CCQKAN model definitions (CHEB-QKAN, Flex-QKAN, etc.)
-├── circuits/     # Quantum circuit components (BE construction, QSVT, etc.)
-├── data/         # Scripts for synthetic dataset generation
-├── training/     # Training loop, losses, and utility functions
-├── notebooks/    # Jupyter Notebooks with experiment visualizations
-└── main.py       # Entry point for training models
+.
+├── CCQKAN/                    # Main framework: CCQKAN class, training & evaluation scripts
+│
+├── CCQKAN_datasets/          # Synthetic dataset generators and data visualization utilities
+│
+├── results/                  # Experimental results for the three evaluation tasks
+│
+├── QKAN_multiple_trainings.py   # Script for running multiple training iterations (as in the thesis)
+│
+├── Quantum_Kolmogorov_Arnold_Networks_TFG.pdf  # Final thesis document (project report)
+│
+├── Results_notebook.ipynb    # Jupyter notebook showing performance metrics and comparisons
+│
+└── slides.pdf                # Slides used for the thesis presentation
+
 
 
 ---
