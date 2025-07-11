@@ -50,9 +50,11 @@ Full methodology, background, and results are presented in the accompanying Bach
 ---
 
 ## Models compatible with CCQKAN:
+
 <p align="center">
   <img src="./Thesis%20report/images/Models_CCQKAN.png" width="600"/>
 </p>
+
 The following table shows the six model variants that can be constructed using the CCQKAN framework, along with their corresponding configuration arguments.
 | Model          | GFCF flag | Trainable GFCF flag| Train angles flag |
 |----------------|-----------|--------------------|-------------------|
