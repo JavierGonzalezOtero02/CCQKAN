@@ -31,11 +31,11 @@ Full methodology, background, and results are presented in the accompanying Bach
 ## Repository Structure
 
 ```text
-├── CCQKAN/                    # Main framework: CCQKAN class, training & evaluation scripts
+├── CCQKAN/                    # **Main framework**: CCQKAN class, training & evaluation scripts
 │
 ├── CCQKAN_datasets/          # Synthetic dataset generators and data visualization utilities
 │
-├── results/                  # Experimental results for the three evaluation tasks
+├── results/                  # Experimental results obtained for the three evaluation tasks presented in the thesis document
 │
 ├── QKAN_multiple_trainings.py   # Script for running multiple training iterations (as in the thesis)
 │
