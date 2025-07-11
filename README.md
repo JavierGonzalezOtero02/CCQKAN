@@ -1,6 +1,7 @@
 # CCQKAN: Classical-to-Classical Quantum Kolmogorov-Arnold Networks
 
 This repository contains the complete implementation of **CCQKAN**, a framework for building, training, and evaluating **Quantum Kolmogorov-Arnold Networks (QKANs)** with classical inputs and outputs.
+
 This repository accompanies the thesis submitted to the international conference **Quantum Techniques in Machine Learning (QTML)**.  
 
 ---
