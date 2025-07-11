@@ -26,11 +26,9 @@ Both approaches are evaluated on classification and regression tasks using synth
 
 ---
 
-## Paper Reference
 
-> This repository accompanies the thesis submitted to the international conference **Quantum Techniques in Machine Learning (QTML)**.  
->  
-> Citation (BibTeX) coming soon.
+
+## This repository accompanies the thesis submitted to the international conference **Quantum Techniques in Machine Learning (QTML)**.  
 
 ---
 
