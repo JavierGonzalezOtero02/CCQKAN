@@ -4,7 +4,7 @@ This repository contains the complete implementation of **CCQKAN**, a framework 
 
 ---
 
-## 🧠 Project Overview
+## Project Overview
 
 This project introduces two main contributions to enhance the expressivity of QKANs:
 
@@ -26,15 +26,15 @@ Both approaches are evaluated on classification and regression tasks using synth
 
 ---
 
-## 🔗 Paper Reference
+## Paper Reference
 
 > This repository accompanies the thesis submitted to the international conference **Quantum Techniques in Machine Learning (QTML)**.  
 >  
-> 📌 Citation (BibTeX) coming soon.
+> Citation (BibTeX) coming soon.
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```text
 CCQKAN/
@@ -48,7 +48,7 @@ CCQKAN/
 
 ---
 
-## ⚙️ Features
+## Features
 
 - Supports:
   - Classical preprocessing with fixed or trainable **GFCF** (`alpha`)
@@ -59,7 +59,7 @@ CCQKAN/
 
 ---
 
-## 🧪 Reproducing Results
+## Reproducing Results
 
 To run an experiment:
 
