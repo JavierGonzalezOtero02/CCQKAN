@@ -24,7 +24,7 @@ Full methodology, background, and results are presented in the accompanying Bach
 > *Javier González Otero*  
 > Supervised by *Miguel Ángel González Ballester*  
 > Academic Year: 2024–2025  
-> [Flexible Quantum Kolmogorov Arnold Networks](./Thesis report/Flexible_Quantum_Kolmogorov_Arnold_Networks.pdf)
+> [Flexible Quantum Kolmogorov-Arnold Networks](./Thesis%20report/Flexible_Quantum_Kolmogorov_Arnold_Networks.pdf)
 
 ---
 
