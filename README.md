@@ -102,7 +102,7 @@ python QKAN_multiple_trainings.py <mode> <seed> <number_of_runs> <output_filenam
 ```
 Arguments:
 
-<mode>: experiment type -> classification_unidimensional_hyperplane, regression_multidimensional_exponential or regression_multidimensional_polynomial
+<mode>: experiment <mode>: type -> classification_unidimensional_hyperplane, regression_multidimensional_exponential or regression_multidimensional_polynomial
 
 <seed>: random seed for reproducibility. This project has used seed 0 for regression experiments and seed 1 for classification experiments.
 
