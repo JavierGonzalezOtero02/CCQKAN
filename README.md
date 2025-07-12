@@ -100,12 +100,18 @@ To replicate the experiments of this project run the CCQKAN_multiple_trainings.p
 ```bash
 python QKAN_multiple_trainings.py <mode> <seed> <number_of_runs> <output_filename>
 ```
-Arguments:
+**Arguments:**
 
-<mode>: experiment <mode>: type -> classification_unidimensional_hyperplane, regression_multidimensional_exponential or regression_multidimensional_polynomial
+```bash
+<mode>             : experiment type -> classification_unidimensional_hyperplane,
+                     regression_multidimensional_exponential,
+                     or regression_multidimensional_polynomial
 
-<se_dd>: random seed for reproducibility. This project has used seed 0 for regression experiments and seed 1 for classification experiments.
+<seed>             : random seed for reproducibility
+                     (this project uses seed 0 for regression, seed 1 for classification)
 
-<number_of_runs>: number of independent training runs. 10 were conducted for the experiments issued in this work.
+<number_of_runs>   : number of independent training runs
+                     (10 were conducted for the experiments in this work)
 
-<output_filename>: name of the output .pkl file to store results (currently available ones are stored in the [results](./results))
+<output_filename>  : name of the output .pkl file to store results
+                     (currently available ones are in the ./results folder)
