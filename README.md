@@ -104,7 +104,7 @@ Arguments:
 
 <mode>: experiment <mode>: type -> classification_unidimensional_hyperplane, regression_multidimensional_exponential or regression_multidimensional_polynomial
 
-<sed>: random seed for reproducibility. This project has used seed 0 for regression experiments and seed 1 for classification experiments.
+<se_dd>: random seed for reproducibility. This project has used seed 0 for regression experiments and seed 1 for classification experiments.
 
 <number_of_runs>: number of independent training runs. 10 were conducted for the experiments issued in this work.
 
