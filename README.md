@@ -102,16 +102,11 @@ python QKAN_multiple_trainings.py <mode> <seed> <number_of_runs> <output_filenam
 ```
 **Arguments:**
 
-```bash
-<mode>             : experiment type -> classification_unidimensional_hyperplane,
-                     regression_multidimensional_exponential,
-                     or regression_multidimensional_polynomial
+- `mode`: experiment type → `classification_unidimensional_hyperplane`, `regression_multidimensional_exponential`, or `regression_multidimensional_polynomial`
+- `seed`: random seed for reproducibility  
+  (this project uses seed `0` for regression, seed `1` for classification)
+- `number_of_runs`: number of independent training runs  
+  (`10` were conducted for the experiments in this work)
+- `output_filename`: name of the output `.pkl` file to store results  
+  (currently available ones are in the [`results`](./results) folder)
 
-<seed>             : random seed for reproducibility
-                     (this project uses seed 0 for regression, seed 1 for classification)
-
-<number_of_runs>   : number of independent training runs
-                     (10 were conducted for the experiments in this work)
-
-<output_filename>  : name of the output .pkl file to store results
-                     (currently available ones are in the ./results folder)
