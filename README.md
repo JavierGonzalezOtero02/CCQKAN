@@ -66,10 +66,7 @@ The following table shows the six model variants that can be constructed using t
 | GFCF-Flex-1    | True      | True               | True              |
 
 ---
-
----
-
-## How to Use
+## How to construct and train CCQKAN models
 
 To create one of the previous 6 CCQKAN models simply import the class and initialize it with the desired arguments:
 
@@ -84,16 +81,31 @@ Data has to be initialized as an N-dimensional list or array-like object. For ex
 matrix = [1, 2, 3, 4, 5]
 ```
 
-Data can then be ingested by the model through the forward method. Due to PennyLane optimization procedure, parameters must be included as arguments in the forward pass.
+Data can then be ingested by the model through the forward method. Due to PennyLane optimization procedure, parameters must be included as arguments in the forward pass:
 
 ```python
 actual_parameters = [getattr(model, attr) for attr in dir(model) if attr.startswith('_parameters_')]
 result = model.forward(matrix, *actual_parameters)
 ```
 
-To train the model, define an optimizer compatible with the PennyLane framework and execute:
+To train the model, define an optimizer compatible with the PennyLane framework and execute the following line where GFCF and train_gfcf are flags:
 ```python
 trained_parameters, cost_values = train_loop_qkan(model, steps, matrix_x, matrix_target, optimizer, GFCF, train_gfcf, training_error_function=optim.MSE_error)
 ```
-where GFCF and train_gfcf are flags.
+---
+## Replicate the experiments shown in results notebook
 
+To replicate the experiments of this project run the CCQKAN_multiple_trainings.py script using the following arguments:
+
+```bash
+python QKAN_multiple_trainings.py <mode> <seed> <number_of_runs> <output_filename>
+```
+Arguments:
+
+<mode>: experiment type -> classification_unidimensional_hyperplane, regression_multidimensional_exponential or regression_multidimensional_polynomial
+
+<seed>: random seed for reproducibility. This project has used seed 0 for regression experiments and seed 1 for classification experiments.
+
+<number_of_runs>: number of independent training runs. 10 were conducted for the experiments issued in this work.
+
+<output_filename>: name of the output .pkl file to store results (currently available ones are stored in the [results](./results))
