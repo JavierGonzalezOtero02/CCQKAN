@@ -67,3 +67,33 @@ The following table shows the six model variants that can be constructed using t
 
 ---
 
+---
+
+## How to Use
+
+To create one of the previous 6 CCQKAN models simply import the class and initialize it with the desired arguments:
+
+```python
+from CCQKAN import CCQKAN
+
+model = CCQKAN(...)
+```
+Data has to be initialized as an N-dimensional list or array-like object. For example:
+
+```python
+matrix = [1, 2, 3, 4, 5]
+```
+
+Data can then be ingested by the model through the forward method. Due to PennyLane optimization procedure, parameters must be included as arguments in the forward pass.
+
+```python
+actual_parameters = [getattr(model, attr) for attr in dir(model) if attr.startswith('_parameters_')]
+result = model.forward(matrix, *actual_parameters)
+```
+
+To train the model, define an optimizer compatible with the PennyLane framework and execute:
+```python
+trained_parameters, cost_values = train_loop_qkan(model, steps, matrix_x, matrix_target, optimizer, GFCF, train_gfcf, training_error_function=optim.MSE_error)
+```
+where GFCF and train_gfcf are flags.
+
