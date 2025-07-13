@@ -31,19 +31,20 @@ Full methodology, background, and results are presented in the accompanying Bach
 ## Repository Structure
 
 ```text
-├── CCQKAN/                    # Main framework: CCQKAN class, training & evaluation scripts
+├── CCQKAN/                          # Main framework: CCQKAN class, training & evaluation scripts
 │
-├── CCQKAN_datasets/          # Synthetic dataset generators and data visualization utilities
+├── CCQKAN_datasets/                # Synthetic dataset generators and data visualization utilities
 │
-├── results/                  # Experimental results obtained for the three evaluation tasks presented in the thesis document
+├── Thesis report/                  # Thesis-related materials
+│   ├── images/                     # Images used within this repository
+│   ├── Quantum_Kolmogorov_Arnold_Networks_TFG.pdf  # Final thesis document (project report)
+│   └── Slides.pdf                  # Presentation slides
 │
-├── QKAN_multiple_trainings.py   # Script for running multiple training iterations (as in the thesis)
+├── results/                        # Experimental results from the three evaluation tasks
 │
-├── Quantum_Kolmogorov_Arnold_Networks_TFG.pdf  # Final thesis document (project report)
+├── QKAN_multiple_trainings.py      # Script for running multiple training iterations (as in the thesis)
 │
-├── Results_notebook.ipynb    # Jupyter notebook showing performance metrics and comparisons
-│
-└── slides.pdf                # Slides used for the thesis presentation
+├── Results_notebook.ipynb          # Jupyter notebook showing performance metrics and comparisons
 ```
 
 
